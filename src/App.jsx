@@ -1,12 +1,7 @@
-import React from "react";
+import AppRouter from "./routes/AppRouter";
 
 function App() {
-  return (
-    <>
-      <div className="text-4xl border">Fakebook</div>
-      <button className="btn btn-primary">CC22</button>
-    </>
-  );
+  return <AppRouter />;
 }
 
 export default App;
