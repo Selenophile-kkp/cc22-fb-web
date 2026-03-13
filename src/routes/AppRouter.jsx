@@ -44,8 +44,8 @@ const userRouter = createBrowserRouter([
 ]);
 
 function AppRouter() {
-  //   const user = null;
-  const user = { email: "kwan@ggg.mail" };
+  const user = null;
+  //   const user = { email: "kwan@ggg.mail" };
   const finalRouter = user ? userRouter : guestRouter;
 
   return (
