@@ -1,15 +1,14 @@
 @import "tailwindcss";
+
 @plugin "daisyui" {
   themes:
     light --default,
-    night;
+    dark;
 }
-@plugin "daisyui/theme" {
-  name: "fakebook";
-  default: true;
-  prefersdark: false;
-  color-scheme: light;
 
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
   /* Base background and text */
   --color-base-100: #ffffff; /* White */
   --color-base-200: #f0f2f5; /* Light gray background */
@@ -57,6 +56,60 @@
   --border-btn: 1px;
 
   /* Tabs */
+  --tab-border: 2px;
+  --tab-radius: 0.5rem;
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  /* base layout */
+  --color-base-100: #18191a;
+  --color-base-200: #242526;
+  --color-base-300: #3a3b3c;
+  --color-base-content: #e4e6eb;
+
+  /* brand */
+  --color-primary: #2374e1;
+  --color-primary-focus: #1b66c9;
+  --color-primary-content: #ffffff;
+
+  /* secondary */
+  --color-secondary: #42b72a;
+  --color-secondary-focus: #36a420;
+  --color-secondary-content: #ffffff;
+
+  /* accent */
+  --color-accent: #2374e1;
+  --color-accent-focus: #1b66c9;
+  --color-accent-content: #ffffff;
+
+  /* neutral */
+  --color-neutral: #b0b3b8;
+  --color-neutral-focus: #e4e6eb;
+  --color-neutral-content: #000000;
+
+  /* status */
+  --color-info: #2374e1;
+  --color-success: #42b72a;
+  --color-warning: #f7b928;
+  --color-error: #fa383e;
+
+  /* borders */
+  --rounded-box: 0.5rem;
+  --rounded-btn: 0.4rem;
+  --rounded-badge: 1rem;
+
+  --border-btn: 1px;
+
+  /* animations */
+  --animation-btn: 0.2s;
+  --animation-input: 0.2s;
+
+  /* button behavior */
+  --btn-text-case: none;
+  --btn-focus-scale: 0.97;
+
+  /* tabs */
   --tab-border: 2px;
   --tab-radius: 0.5rem;
 }

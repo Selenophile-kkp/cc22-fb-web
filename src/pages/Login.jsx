@@ -7,7 +7,14 @@ function Login() {
       <div className="h-175 pt-20 pb-28 bg-base-200">
         <div className="p-5  max-w-5xl mx-auto min-h-135 flex justify-between max-md:flex-col">
           <div className=" flex flex-col gap-4 mt-20 basis-3/5 max-md:text-center">
-            <div className="text-5xl text-primary font-bold">Fakebook</div>
+            <div className="text-5xl text-primary font-bold">
+              Fakebook
+              <input
+                type="checkbox"
+                value="dark"
+                className="toggle theme-controller"
+              />
+            </div>
             <h2 className="text-[30px] leading-8 mt-3 w-128.5 max-md:w-auto">
               Fakebook helps you connect and share with the people in your life.
             </h2>
