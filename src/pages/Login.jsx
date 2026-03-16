@@ -1,7 +1,32 @@
 import RegisterForm from "@/components/RegisterForm";
-import React from "react";
+import useUserStore from "@/stores/userStore";
+import { loginSchema } from "@/validations/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 function Login() {
+  const user = useUserStore((state) => state.user);
+  const login = useUserStore((state) => state.login);
+  const { register, handleSubmit, formState, _reset } = useForm({
+    resolver: zodResolver(loginSchema),
+    mode: "onSubmit",
+  });
+
+  const { errors, isSubmitting, isValid } = formState;
+
+  const onSubmit = async (body) => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const resp = await login(body);
+      toast.success(resp.data.message);
+    } catch (err) {
+      console.dir(err);
+      const errMsg = err.response?.data.message || err.message;
+      toast.error(errMsg);
+    }
+  };
+
   return (
     <>
       <div className="h-175 pt-20 pb-28 bg-base-200">
@@ -14,6 +39,7 @@ function Login() {
                 value="dark"
                 className="toggle theme-controller"
               />
+              <p className="mx-2">Hello, {user?.firstName}</p>
             </div>
             <h2 className="text-[30px] leading-8 mt-3 w-128.5 max-md:w-auto">
               Fakebook helps you connect and share with the people in your life.
@@ -24,32 +50,54 @@ function Login() {
           </div>
           <div className=" flex-1 flex ">
             <div className="card bg-base-100 w-full h-87.5 shadow-xl mt-8">
-              <form onSubmit={(e) => e.preventDefault()}>
-                <div className="card-body gap-3 p-4">
-                  <input
-                    type="text"
-                    className="input w-full"
-                    placeholder="E-mail or Phon number"
-                  />
-                  <input
-                    type="password"
-                    className="input w-full"
-                    placeholder="Password"
-                  />
-                  <button className="btn btn-primary text-xl">Login</button>
-                  <p className="text-center cursor-pointer opacity-70">
-                    Forgotten password?
-                  </p>
-                  <div className="divider my-0"></div>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={() =>
-                      document.getElementById("register-form").showModal()
-                    }
-                  >
-                    Create new account
-                  </button>
-                </div>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <fieldset disabled={isSubmitting}>
+                  <div className="card-body gap-3 p-4">
+                    <div className="w-full">
+                      <input
+                        type="text"
+                        className="input w-full"
+                        placeholder="E-mail or Phon number"
+                        {...register("identity")}
+                      />
+                      <p className="text-sm text-error">
+                        {errors.identity?.message}
+                      </p>
+                    </div>
+                    <div className="w-full">
+                      <input
+                        type="password"
+                        className="input w-full"
+                        placeholder="Password"
+                        {...register("password")}
+                      />
+                      <p className="text-sm text-error">
+                        {errors.password?.message}
+                      </p>
+                    </div>
+                    <button
+                      className="btn btn-primary text-xl"
+                      disabled={!isValid}
+                    >
+                      Login{" "}
+                      {isSubmitting && (
+                        <span className="loading loading-infinity loading-sm"></span>
+                      )}
+                    </button>
+                    <p className="text-center cursor-pointer opacity-70">
+                      Forgotten password?
+                    </p>
+                    <div className="divider my-0"></div>
+                    <button
+                      className="btn btn-secondary"
+                      onClick={() =>
+                        document.getElementById("register-form").showModal()
+                      }
+                    >
+                      Create new account
+                    </button>
+                  </div>
+                </fieldset>
               </form>
             </div>
           </div>
