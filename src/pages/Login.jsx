@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 function Login() {
-  const user = useUserStore((state) => state.user);
+  // const user = useUserStore((state) => state.user);
   const login = useUserStore((state) => state.login);
   const { register, handleSubmit, formState, _reset } = useForm({
     resolver: zodResolver(loginSchema),
@@ -17,9 +17,9 @@ function Login() {
 
   const onSubmit = async (body) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const resp = await login(body);
-      toast.success(resp.data.message);
+      // toast.success(resp.data.message);
     } catch (err) {
       console.dir(err);
       const errMsg = err.response?.data.message || err.message;
@@ -39,7 +39,7 @@ function Login() {
                 value="dark"
                 className="toggle theme-controller"
               />
-              <p className="mx-2">Hello, {user?.firstName}</p>
+              {/* <p className="mx-2">Hello, {user?.firstName}</p> */}
             </div>
             <h2 className="text-[30px] leading-8 mt-3 w-128.5 max-md:w-auto">
               Fakebook helps you connect and share with the people in your life.
